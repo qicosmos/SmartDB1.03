@@ -1,12 +1,12 @@
 #pragma once
 /*
-*ÎÄ¼şÃû³Æ£ºSweetDB.hpp
-*ÎÄ¼ş±êÊ¶£º
-*ÕªÒª£ºÊı¾İ¿â²Ù×÷Àà£¬Ìá¹©¼ò½àÍ³Ò»µÄ²Ù×÷½Ó¿Ú
+*æ–‡ä»¶åç§°ï¼šSweetDB.hpp
+*æ–‡ä»¶æ ‡è¯†ï¼š
+*æ‘˜è¦ï¼šæ•°æ®åº“æ“ä½œç±»ï¼Œæä¾›ç®€æ´ç»Ÿä¸€çš„æ“ä½œæ¥å£
 
-*µ±Ç°°æ±¾£º1.0.0
-*×÷Õß£ºÆîÓî
-*Íê³ÉÈÕÆÚ£º2013Äê8ÔÂ1ÈÕ
+*å½“å‰ç‰ˆæœ¬ï¼š1.0.0
+*ä½œè€…ï¼šç¥å®‡
+*å®Œæˆæ—¥æœŸï¼š2013å¹´8æœˆ1æ—¥
 */
 
 #include <sqlite3.h>
@@ -34,9 +34,9 @@ public:
 	SmartDB() : m_jsonHelper(m_buf, m_code){}
 
 	/**
-	* Á¬½ÓÊı¾İ¿â
-	* Èç¹ûÊı¾İ¿â²»´æÔÚ£¬Êı¾İ¿â½«±»´´½¨²¢´ò¿ª, Èç¹û´´½¨Ê§°ÜÔòÉèÖÃÊ§°Ü±êÖ¾
-	* @param[in] fileName£ºÊı¾İ¿âÎÄ¼şµÄÎ»ÖÃ¡£
+	* è¿æ¥æ•°æ®åº“
+	* å¦‚æœæ•°æ®åº“ä¸å­˜åœ¨ï¼Œæ•°æ®åº“å°†è¢«åˆ›å»ºå¹¶æ‰“å¼€, å¦‚æœåˆ›å»ºå¤±è´¥åˆ™è®¾ç½®å¤±è´¥æ ‡å¿—
+	* @param[in] fileNameï¼šæ•°æ®åº“æ–‡ä»¶çš„ä½ç½®ã€‚
 	*/
 	explicit SmartDB(const string& fileName) : m_dbHandle(nullptr), m_statement(nullptr), m_isConned(false), m_code(0), m_jsonHelper(m_buf, m_code)
 	{
@@ -44,7 +44,7 @@ public:
 	}
 
 	/**
-	* ÊÍ·Å×ÊÔ´£¬¹Ø±ÕÊı¾İ¿â
+	* é‡Šæ”¾èµ„æºï¼Œå…³é—­æ•°æ®åº“
 	*/
 	~SmartDB()
 	{
@@ -52,7 +52,7 @@ public:
 	}
 
 	/**
-	* ´ò¿ªÊı¾İ¿â
+	* æ‰“å¼€æ•°æ®åº“
 	*/
 	void Open(const string& fileName)
 	{
@@ -64,7 +64,7 @@ public:
 	}
 
 	/**
-	* ÊÍ·Å×ÊÔ´£¬¹Ø±ÕÊı¾İ¿â
+	* é‡Šæ”¾èµ„æºï¼Œå…³é—­æ•°æ®åº“
 	*/
 	bool Close()
 	{
@@ -80,7 +80,7 @@ public:
 	}
 
 	/**
-	* ÊÇ·ñÒÑÁ¬½ÓÊı¾İ¿â
+	* æ˜¯å¦å·²è¿æ¥æ•°æ®åº“
 	*/
 	bool IsConned() const
 	{
@@ -88,9 +88,9 @@ public:
 	}
 
 	/**
-	* ²»´øÕ¼Î»·û¡£Ö´ĞĞsql£¬²»´ø·µ»Ø½á¹û, Èçinsert,update,deleteµÈ
-	* @param[in] query: sqlÓï¾ä, ²»´øÕ¼Î»·û
-	* @return bool, ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	* ä¸å¸¦å ä½ç¬¦ã€‚æ‰§è¡Œsqlï¼Œä¸å¸¦è¿”å›ç»“æœ, å¦‚insert,update,deleteç­‰
+	* @param[in] query: sqlè¯­å¥, ä¸å¸¦å ä½ç¬¦
+	* @return bool, æˆåŠŸè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	*/
 	bool Excecute(const string& sqlStr)
 	{
@@ -99,10 +99,10 @@ public:
 	}
 
 	/**
-	* ´øÕ¼Î»·û¡£Ö´ĞĞsql£¬²»´ø·µ»Ø½á¹û, Èçinsert,update,deleteµÈ
-	* @param[in] query: sqlÓï¾ä, ¿ÉÄÜ´øÕ¼Î»·û"?"
-	* @param[in] args: ²ÎÊıÁĞ±í£¬ÓÃÀ´Ìî³äÕ¼Î»·û
-	* @return bool, ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	* å¸¦å ä½ç¬¦ã€‚æ‰§è¡Œsqlï¼Œä¸å¸¦è¿”å›ç»“æœ, å¦‚insert,update,deleteç­‰
+	* @param[in] query: sqlè¯­å¥, å¯èƒ½å¸¦å ä½ç¬¦"?"
+	* @param[in] args: å‚æ•°åˆ—è¡¨ï¼Œç”¨æ¥å¡«å……å ä½ç¬¦
+	* @return bool, æˆåŠŸè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	*/
 	template <typename... Args>
 	bool Excecute(const string& sqlStr, Args && ... args)
@@ -116,9 +116,9 @@ public:
 	}
 
 	/**
-	* ÅúÁ¿²Ù×÷Ö®Ç°×¼±¸sql½Ó¿Ú£¬±ØĞëºÍExcecuteBulkÒ»Æğµ÷ÓÃ£¬×¼±¸ÅúÁ¿²Ù×÷µÄsql£¬¿ÉÄÜ´øÕ¼Î»·û
-	* @param[in] query: sqlÓï¾ä, ´øÕ¼Î»·û"?"
-	* @return bool, ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	* æ‰¹é‡æ“ä½œä¹‹å‰å‡†å¤‡sqlæ¥å£ï¼Œå¿…é¡»å’ŒExcecuteBulkä¸€èµ·è°ƒç”¨ï¼Œå‡†å¤‡æ‰¹é‡æ“ä½œçš„sqlï¼Œå¯èƒ½å¸¦å ä½ç¬¦
+	* @param[in] query: sqlè¯­å¥, å¸¦å ä½ç¬¦"?"
+	* @return bool, æˆåŠŸè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	*/
 	bool Prepare(const string& sqlStr)
 	{
@@ -132,9 +132,9 @@ public:
 	}
 
 	/**
-	* ÅúÁ¿²Ù×÷½Ó¿Ú£¬±ØĞëÏÈµ÷ÓÃPrepare½Ó¿Ú
-	* @param[in] args: ²ÎÊıÁĞ±í
-	* @return bool, ³É¹¦·µ»Øtrue£¬·ñÔò·µ»Øfalse
+	* æ‰¹é‡æ“ä½œæ¥å£ï¼Œå¿…é¡»å…ˆè°ƒç”¨Prepareæ¥å£
+	* @param[in] args: å‚æ•°åˆ—è¡¨
+	* @return bool, æˆåŠŸè¿”å›trueï¼Œå¦åˆ™è¿”å›false
 	*/
 	template <typename... Args>
 	bool ExcecuteArgs(Args && ... args)
@@ -181,11 +181,11 @@ public:
 	}
 
 	/**
-	* Ö´ĞĞsql£¬·µ»Øº¯ÊıÖ´ĞĞµÄÒ»¸öÖµ, Ö´ĞĞ¼òµ¥µÄ»ã¾Ûº¯Êı£¬Èçselect count(*), select max(*)µÈ
-	* ·µ»Ø½á¹û¿ÉÄÜÓĞ¶àÖÖÀàĞÍ£¬·µ»ØValueÀàĞÍ£¬ÔÚÍâÃæÍ¨¹ıgetº¯ÊıÈ¥È¡
-	* @param[in] query: sqlÓï¾ä, ¿ÉÄÜ´øÕ¼Î»·û"?"
-	* @param[in] args: ²ÎÊıÁĞ±í£¬ÓÃÀ´Ìî³äÕ¼Î»·û
-	* @return int: ·µ»Ø½á¹ûÖµ£¬Ê§°ÜÔò·µ»Ø-1
+	* æ‰§è¡Œsqlï¼Œè¿”å›å‡½æ•°æ‰§è¡Œçš„ä¸€ä¸ªå€¼, æ‰§è¡Œç®€å•çš„æ±‡èšå‡½æ•°ï¼Œå¦‚select count(*), select max(*)ç­‰
+	* è¿”å›ç»“æœå¯èƒ½æœ‰å¤šç§ç±»å‹ï¼Œè¿”å›Valueç±»å‹ï¼Œåœ¨å¤–é¢é€šè¿‡getå‡½æ•°å»å–
+	* @param[in] query: sqlè¯­å¥, å¯èƒ½å¸¦å ä½ç¬¦"?"
+	* @param[in] args: å‚æ•°åˆ—è¡¨ï¼Œç”¨æ¥å¡«å……å ä½ç¬¦
+	* @return int: è¿”å›ç»“æœå€¼ï¼Œå¤±è´¥åˆ™è¿”å›-1
 	*/
 	template < typename R = sqlite_int64, typename... Args>
 	R ExecuteScalar(const string& sqlStr, Args&&... args)
@@ -195,7 +195,7 @@ public:
 
 		if (SQLITE_OK != detail::BindParams(m_statement, 1, std::forward<Args>(args)...))
 		{
-			return false;
+			return GetErrorVal<R>();
 		}
 
 		m_code = sqlite3_step(m_statement);
@@ -284,7 +284,7 @@ private:
 		return true;
 	}
 
-	//Í¨¹ıjson´®Ğ´µ½Êı¾İ¿âÖĞ
+	//é€šè¿‡jsonä¸²å†™åˆ°æ•°æ®åº“ä¸­
 	bool JsonTransaction(const rapidjson::Document& doc)
 	{
 		Begin();
@@ -307,7 +307,7 @@ private:
 
 private:
 
-	/** È¡ÁĞµÄÖµ **/
+	/** å–åˆ—çš„å€¼ **/
 	SqliteValue GetValue(sqlite3_stmt *stmt, const int& index)
 	{
 		int type = sqlite3_column_type(stmt, index);
@@ -323,24 +323,31 @@ private:
 		GetErrorVal()
 	{
 			return T(-9999);
-		}
+	}
 
 	template<typename T>
-	typename std::enable_if <!std::is_arithmetic<T>::value, T>::type
+	typename std::enable_if <!std::is_arithmetic<T>::value&&!std::is_same<T, blob>::value, T>::type
 		GetErrorVal()
 	{
 			return "";
-		}
+	}
+
+	template<typename T>
+	typename std::enable_if <std::is_same<T, blob>::value, T>::type
+		GetErrorVal()
+	{
+			return {nullptr, 0};
+	}
 
 private:
 	sqlite3* m_dbHandle;
 	sqlite3_stmt* m_statement;
 	bool m_isConned;
-	int m_code;//¼ÇÂ¼×î½üÒ»´ÎµÄ´íÎóÂë
+	int m_code;//è®°å½•æœ€è¿‘ä¸€æ¬¡çš„é”™è¯¯ç 
 
-	//JsonBuilder m_jsonBuilder;  //Ğ´json´®
+	//JsonBuilder m_jsonBuilder;  //å†™jsonä¸²
 	detail::JsonHelper m_jsonHelper;
-	rapidjson::StringBuffer m_buf; //json×Ö·û´®µÄbuf
+	rapidjson::StringBuffer m_buf; //jsonå­—ç¬¦ä¸²çš„buf
 
 	static std::unordered_map<int, std::function <SqliteValue(sqlite3_stmt*, int)>> m_valmap;
 	
