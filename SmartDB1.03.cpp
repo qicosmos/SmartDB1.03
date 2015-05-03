@@ -1,4 +1,4 @@
-// SmartDB1.03.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// SmartDB1.03.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 
 #include "stdafx.h"
@@ -8,7 +8,7 @@
 
 void TestJson(SmartDB& db, const string& sqlinsert)
 {
-	//ÕâÀïÍ¨¹ıjsoncpp·â×°ÀàÀ´¼ò»¯json¶ÔÏóµÄ´´½¨
+	//è¿™é‡Œé€šè¿‡jsoncppå°è£…ç±»æ¥ç®€åŒ–jsonå¯¹è±¡çš„åˆ›å»º
 	rapidjson::StringBuffer buf;
 	rapidjson::Writer<rapidjson::StringBuffer> writer(buf);
 	writer.StartArray();
@@ -59,7 +59,7 @@ void TestJsonCpp()
 	bool r = db.ExcecuteJson(sqlinsert, jcp.GetString());
 	cout << t.elapsed() << endl;
 	t.restart();
-	//100w 3.5-4Ãë×óÓÒ
+	//100w 3.5-4ç§’å·¦å³
 
 	auto p = db.Query("select * from TestInfoTable");
 	cout << t.elapsed() << endl;
@@ -100,7 +100,7 @@ void TestCreateTable()
 	string strQery = "select * from PersonTable";
 	for (size_t i = 0; i < 10000; i++)
 	{
-		db.Query(strQery, json);
+		db.Query(strQery);
 	}
 
 	const string str = "select Address from PersonTable where ID=2";
@@ -129,19 +129,19 @@ void TestPerformance()
 	}
 
 	if (ret)
-		db.Commit(); //Ìá½»ÊÂÎñ
+		db.Commit(); //æäº¤äº‹åŠ¡
 	else
-		db.RollBack(); //»Ø¹ö
+		db.RollBack(); //å›æ»š
 
 	cout << t.elapsed() << endl;
 	t.restart();
-	//100w 3.5-4Ãë×óÓÒ
+	//100w 3.5-4ç§’å·¦å³
 
 	auto p = db.Query("select * from TestInfoTable");
 
 	cout << t.elapsed() << endl;
 	cout << "size: " << p->Size() << endl;
-	//100W 4Ãë×óÓÒ
+	//100W 4ç§’å·¦å³
 }
 
 int _tmain(int argc, _TCHAR* argv[])
