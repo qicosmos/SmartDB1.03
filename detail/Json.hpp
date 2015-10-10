@@ -86,7 +86,7 @@ namespace detail
 				m_code = sqlite3_bind_double(stmt, index, t.GetDouble());
 		}
 
-		//²éÑ¯µ½jsonÖĞ
+		//æŸ¥è¯¢åˆ°jsonä¸­
 		void ToUpper(char* s)
 		{
 			size_t len = strlen(s);
@@ -105,7 +105,7 @@ namespace detail
 				char* name = (char*) sqlite3_column_name(stmt, i);
 				ToUpper(name);
 
-				m_jsonBuilder.String(name);  //Ğ´×Ö¶ÎÃû
+				m_jsonBuilder.String(name);  //å†™å­—æ®µå
 				BuildJsonValue(stmt, i);
 			}
 
@@ -123,7 +123,7 @@ namespace detail
 		}
 
 		int& m_code;
-		JsonBuilder m_jsonBuilder;  //Ğ´json´®
+		JsonBuilder m_jsonBuilder;  //å†™jsonä¸²
 		static std::unordered_map<int, std::function<void(sqlite3_stmt *stmt, int index, JsonBuilder&)>> m_builderMap;
 	};
 
@@ -131,11 +131,15 @@ namespace detail
 	{
 		{ std::make_pair(SQLITE_INTEGER, [](sqlite3_stmt *stmt, int index, JsonBuilder& builder){ builder.Int64(sqlite3_column_int64(stmt, index)); }) },
 		{ std::make_pair(SQLITE_FLOAT, [](sqlite3_stmt *stmt, int index, JsonBuilder& builder){ builder.Double(sqlite3_column_double(stmt, index)); }) },
-		{ std::make_pair(SQLITE_BLOB, [](sqlite3_stmt *stmt, int index, JsonBuilder& builder){ builder.String((const char*) sqlite3_column_blob(stmt, index)); }) },
+		{ std::make_pair(SQLITE_BLOB, [](sqlite3_stmt *stmt, int index, JsonBuilder& builder)
+		{ 
+			//blobå­—æ®µè¦æ³¨æ„è·å–å®é™…çš„æµé•¿åº¦
+			builder.String((const char*)sqlite3_column_blob(stmt, index), sqlite3_column_bytes(stmt, index));
+		},
 		{ std::make_pair(SQLITE_TEXT, [](sqlite3_stmt *stmt, int index, JsonBuilder& builder){ builder.String((const char*) sqlite3_column_text(stmt, index)); }) },
 		{ std::make_pair(SQLITE_NULL, [](sqlite3_stmt *stmt, int index, JsonBuilder& builder){builder.Null(); }) }
 	};
-	//Í¨¹ıjson´®Ğ´µ½Êı¾İ¿âÖĞ
+	//é€šè¿‡jsonä¸²å†™åˆ°æ•°æ®åº“ä¸­
 	//bool JsonTransaction(const rapidjson::Document& doc)
 	//{
 	//	Begin();
